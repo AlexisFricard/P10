@@ -1,7 +1,8 @@
 """
 VIEWS FILE MANAGE PRODUCTS
 """
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
+from django.template import RequestContext
 
 from webapp.modules.tools.clean_sentence import remove_special_char
 from webapp.modules.tools.builder import build_data
@@ -10,7 +11,12 @@ from webapp.modules.psql.db_manager import add_data, add_nutr_data
 
 
 def error404(request):
-    return render(request, 'err404.html')
+    response = render_to_response(
+        'err404.html',
+        context_instance=RequestContext(request)
+        )
+    response.status_code = 400
+    return response
 
 
 def index(request):
