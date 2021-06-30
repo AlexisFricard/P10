@@ -24,14 +24,37 @@ services:
 
   db:
     image: postgres
-    environment:
-      - POSTGRES_DB=purbeurre
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=aqwz7418
+    env_file:
+      - .env
     volumes:
       - ./data/db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-  
+
+  celery-redis:
+    image: redis:alpine
+ 
+  celery:
+    build:
+      context: .
+    command: celery -A core worker -l info
+    volumes:
+      - ./data/celery/:/usr/src/app/
+    env_file:
+      - .env
+    depends_on:
+      - celery-redis
+ 
+  celery-beat:
+    build:
+      context: .
+    command: celery -A core beat -l info
+    volumes:
+      - ./data/celery/:/usr/src/app/
+    env_file:
+      - .env
+    depends_on:
+      - celery-redis  
+
 volumes:
   static:

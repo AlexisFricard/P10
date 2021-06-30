@@ -14,5 +14,4 @@ urlpatterns = [
 
 handler404 = 'webapp.views.error_404'
 handler400 = 'webapp.views.error_404'
-handler403 = 'webapp.views.error_403'
-handler500 = 'webapp.views.error_404'
+handler403 = 'webapp.views.error_404'

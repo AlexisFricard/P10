@@ -3,10 +3,14 @@ Django settings for purbeurre project.
 """
 
 import os
-import sentry_sdk
 
+import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
+from celery.schedules import crontab
+import purbeurre.tasks
+
+# SENTRY SETTINGS
 sentry_sdk.init(
     dsn="http://59766d5e4568484798afc104edac7352@localhost:9000/2",
     integrations=[DjangoIntegration()],
@@ -20,6 +24,19 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True
 )
+# END OF SENTRY SETTINGS
+
+# CELERY SETTINGS
+CELERY_BROKER_URL = "redis://redis:6379"
+CELERY_RESULT_BACKEND = "redis://redis:6379"
+
+CELERY_BEAT_SCHEDULE = {
+    "scan_db": {
+        "task": "purbeurre.tasks.scan_db",
+        "schedule": crontab(day_of_week="1"), # 1 = Monday
+    },
+}
+# END OF CELERY SETTINGS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
