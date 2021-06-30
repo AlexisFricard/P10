@@ -15,7 +15,7 @@ def error404(request):
         'err404.html',
         context_instance=RequestContext(request)
         )
-    response.status_code = 400
+    response.status_code = 404
     return response
 
 
