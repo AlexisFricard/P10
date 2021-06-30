@@ -54,6 +54,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
+    'django_celery_beat',
     'bootstrap4',
     'usermanage.apps.UsermanageConfig',
     'webapp.apps.WebappConfig',
