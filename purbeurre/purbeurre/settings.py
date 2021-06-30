@@ -33,7 +33,11 @@ CELERY_RESULT_BACKEND = "redis://redis:6379"
 CELERY_BEAT_SCHEDULE = {
     "scan_db": {
         "task": "purbeurre.tasks.scan_db",
-        "schedule": crontab(day_of_week="1"), # 1 = Monday
+        "schedule": crontab(
+                        minute='0',
+                        hour='0',
+                        day_of_week='sun'
+                    ),
     },
 }
 # END OF CELERY SETTINGS
