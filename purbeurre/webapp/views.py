@@ -9,6 +9,10 @@ from webapp.modules.psql.db_manager import save_research
 from webapp.modules.psql.db_manager import add_data, add_nutr_data
 
 
+def error404(request):
+    return render(request, 'err404.html')
+
+
 def index(request):
     return render(request, 'index.html')
 
