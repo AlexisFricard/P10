@@ -22,4 +22,4 @@ jobs:
 
       - name: Autodeploy
         run: |
-          ssh root@${{ secrets.HOST }} "cd / && cd home/P10 && sudo docker-compose down && sudo git pull origin Master && sudo docker-compose up --build -d"
+          ssh root@${{ secrets.HOST }} "cd / && cd home/P10 && sudo docker container stop p10_django_gunicorn_1 && sudo git pull origin Master && sudo docker-compose up --build -d"
