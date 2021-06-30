@@ -5,7 +5,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   pull_request:
-    branches: [ main ]
+    branches: [ Master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -20,6 +20,6 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh-host: ${{ secrets.HOST }}
 
-      - name: test
+      - name: Auto déploi
         run: |
-          ssh root@${{ secrets.HOST }} "cd / && cd home/P10 && sudo docker-compose down && sudo git pull && sudo docker-compose up --build"
+          ssh root@${{ secrets.HOST }} "cd / && cd home/P10 && sudo docker-compose down && sudo git pull && sudo docker-compose up -d"
