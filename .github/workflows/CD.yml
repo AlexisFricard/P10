@@ -14,12 +14,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
       - uses: kielabokkie/ssh-key-and-known-hosts-action@v1
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh-host: ${{ secrets.HOST }}
 
-      - name: Auto déploi
+      - name: Autodeploy
         run: |
           ssh root@${{ secrets.HOST }} "cd / && cd home/P10 && sudo docker-compose down && sudo git pull && sudo docker-compose up -d"
