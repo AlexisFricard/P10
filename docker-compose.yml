@@ -24,10 +24,8 @@ services:
 
   db:
     image: postgres
-    environment:
-      - POSTGRES_DB=purbeurre
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=aqwz7418
+    env_file:
+      - .env
     volumes:
       - ./data/db:/var/lib/postgresql/data
     ports:
